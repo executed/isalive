@@ -43,7 +43,7 @@ public class CheckEndpoint {
 
     private LocalDateTime dateCreated = LocalDateTime.now();
 
-    private LocalDateTime dateModified = LocalDateTime.now();;
+    private LocalDateTime dateModified = LocalDateTime.now();
 
     @ManyToOne
     private User user;
