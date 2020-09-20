@@ -22,7 +22,7 @@ import lombok.Setter;
 
 @Entity
 @Table (name = "check_endpoint",
-        indexes = {@Index(name = "ui_endpoint_link", columnList = "endpointurl,user_id,archived")})
+        indexes = {@Index(name = "ui_endpoint_link", unique = true, columnList = "endpointurl,user_id,archived")})
 @Getter
 @Setter
 public class CheckEndpoint {
