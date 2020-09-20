@@ -1,12 +1,15 @@
 package com.devserbyn.isalive.service.impl;
 
 import com.devserbyn.isalive.constant.STR_CONSTANT;
+import com.devserbyn.isalive.model.enums.ApplicationProperty;
 import com.devserbyn.isalive.service.ApplicationService;
 
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +21,8 @@ import static java.util.Arrays.asList;
 @Slf4j
 @RequiredArgsConstructor
 public class ApplicationServiceImpl implements ApplicationService {
+
+    private Map<ApplicationProperty, String> applicationProperties = new HashMap<>();
 
     @Override
     public void checkEnvVarsPresence() {
@@ -33,4 +38,25 @@ public class ApplicationServiceImpl implements ApplicationService {
         extraVars.stream().filter(extraVar -> System.getenv().get(extraVar) == null)
                           .forEach(x -> log.warn(String.format("Extra environment variable missing: %s", x)));
     }
+
+    @Override
+    public void setApplicationProperty(ApplicationProperty property, String value) {
+        this.applicationProperties.put(property, value);
+    }
+
+    @Override
+    public String getApplicationProperty(ApplicationProperty property) {
+        return this.applicationProperties.get(property);
+    }
+
+    @Override
+    public void sleep(long ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            log.error("Something went wrong while thread was sleeping", e);
+        }
+    }
+
+
 }
