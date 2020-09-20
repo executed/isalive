@@ -2,6 +2,7 @@ package com.devserbyn.isalive.model;
 
 import com.devserbyn.isalive.model.enums.EndpointCheckStatus;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -38,19 +39,12 @@ public class CheckEndpoint {
 
     private boolean archived = false;
 
-    private Date dateCreated = new Date();
+    private LocalDateTime dateCreated = LocalDateTime.now();
 
-    private Date dateModified;
+    private LocalDateTime dateModified;
 
     @ManyToOne
     private User user;
-
-    public CheckEndpoint() { }
-
-    public CheckEndpoint(String endpointURL, boolean supportsIsAlive) {
-        this.endpointURL = endpointURL;
-        this.supportsIsAlive = supportsIsAlive;
-    }
 
     public boolean differentFrom(CheckEndpoint checkEndpoint) {
         return this.id != checkEndpoint.getId() ||

@@ -2,20 +2,27 @@ package com.devserbyn.isalive.service.impl;
 
 import com.devserbyn.isalive.model.CheckEndpoint;
 import com.devserbyn.isalive.model.User;
+import com.devserbyn.isalive.model.enums.ApplicationProperty;
 import com.devserbyn.isalive.repository.CheckEndpointRepository;
+import com.devserbyn.isalive.service.ApplicationService;
 import com.devserbyn.isalive.service.CheckEndpointService;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 @Slf4j
 public class CheckEndpointServiceImpl implements CheckEndpointService {
@@ -26,9 +33,14 @@ public class CheckEndpointServiceImpl implements CheckEndpointService {
     public CheckEndpoint save(CheckEndpoint checkEndpoint) {
         if (repository.findById(checkEndpoint.getId()).isPresent() &&
             repository.findById(checkEndpoint.getId()).orElseThrow(IllegalStateException::new).differentFrom(checkEndpoint)) {
-            checkEndpoint.setDateModified(new Date());
+            checkEndpoint.setDateModified(LocalDateTime.now());
         }
         return repository.save(checkEndpoint);
+    }
+
+    @Override
+    public Optional<CheckEndpoint> findById(long id) {
+        return repository.findById(id);
     }
 
     @Override
@@ -55,7 +67,7 @@ public class CheckEndpointServiceImpl implements CheckEndpointService {
     public void archive(CheckEndpoint checkEndpoint) {
         checkEndpoint.setArchived(true);
         checkEndpoint.setUser(null);
-        checkEndpoint.setDateModified(new Date());
+        checkEndpoint.setDateModified(LocalDateTime.now());
         this.save(checkEndpoint);
     }
 
