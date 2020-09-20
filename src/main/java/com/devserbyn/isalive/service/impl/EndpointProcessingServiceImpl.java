@@ -81,6 +81,7 @@ public class EndpointProcessingServiceImpl implements EndpointProcessingService 
             EndpointCheckStatus endpointCheckStatus = this.checkEndpoint(endpoint);
             if (endpointCheckStatus != EndpointCheckStatus.OK) {
                 userSetupStepsBO.removeByChatId(chatID);
+                checkEndpointService.delete(endpoint);
                 return getAnswerOnEndpointCheckStatus(endpointCheckStatus, endpoint);
             }
 

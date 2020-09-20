@@ -75,4 +75,9 @@ public class CheckEndpointServiceImpl implements CheckEndpointService {
     public void archive(List<CheckEndpoint> checkEndpointList) {
         checkEndpointList.forEach(this::archive);
     }
+
+    @Override
+    public void delete(CheckEndpoint endpoint) {
+        repository.delete(endpoint);
+    }
 }

@@ -21,4 +21,6 @@ public interface CheckEndpointService {
     void archive(CheckEndpoint checkEndpoint);
 
     void archive(List<CheckEndpoint> checkEndpointList);
+
+    void delete(CheckEndpoint endpoint);
 }
