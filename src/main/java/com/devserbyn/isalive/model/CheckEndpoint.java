@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -20,7 +21,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table (name = "check_endpoint")
+@Table (name = "check_endpoint",
+        indexes = {@Index(name = "ui_endpoint_link", columnList = "endpointurl,user_id,archived")})
 @Getter
 @Setter
 public class CheckEndpoint {
