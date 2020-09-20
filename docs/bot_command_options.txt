@@ -1,0 +1,5 @@
+list - 📋 Your endpoints we're tracking
+add - ➕ Add new endpoint
+remove - ➖ Remove existing endpoint
+removeme - 🚷 Clear your data
+help - ℹ️ More info & list of commands
